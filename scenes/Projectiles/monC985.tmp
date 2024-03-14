@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://bbd0e7q3chk4u"]
+
+[ext_resource type="Script" path="res://scenes/Projectiles/monster_projectile1.gd" id="1_ikwlh"]
+[ext_resource type="Texture2D" uid="uid://lg58lyv24c11" path="res://graphic/characters/Player/Suitcase/Suitcase 1-Sheet.png" id="2_thljp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2fvd"]
+atlas = ExtResource("2_thljp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrw63"]
+atlas = ExtResource("2_thljp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmjqp"]
+atlas = ExtResource("2_thljp")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vtis"]
+atlas = ExtResource("2_thljp")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g2smn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2fvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrw63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmjqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vtis")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mwidb"]
+radius = 5.0
+
+[sub_resource type="Curve" id="Curve_lxaji"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.573333, 0.791209), 0.0, 0.0, 0, 0, Vector2(1, 0.0659341), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_u4co3"]
+curve = SubResource("Curve_lxaji")
+
+[sub_resource type="Curve" id="Curve_5lw0p"]
+max_value = 5.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 5), 0.0, 0.0, 0, 0, Vector2(0.153333, 2.25275), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_u25xk"]
+curve = SubResource("Curve_5lw0p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ed1at"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 67.42
+initial_velocity_max = 202.24
+angular_velocity_min = 2000.0
+angular_velocity_max = 2000.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 51.69
+radial_accel_max = 51.69
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_u25xk")
+color = Color(0.152941, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_u4co3")
+
+[node name="Suitcase_projectile" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_ikwlh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, 0)
+scale = Vector2(0.698481, 0.698481)
+sprite_frames = SubResource("SpriteFrames_g2smn")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+shape = SubResource("CircleShape2D_mwidb")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(3, 1)
+emitting = false
+amount = 14
+amount_ratio = 0.7399
+process_material = SubResource("ParticleProcessMaterial_ed1at")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

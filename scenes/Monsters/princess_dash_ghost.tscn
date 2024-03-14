@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://vdy52yn7ai5q"]
+
+[ext_resource type="Texture2D" uid="uid://he65f0h24x0q" path="res://graphic/Monsters/Bosses/Princess/Princess 1 - dash3 (no tail)-Sheet.png" id="1_7hkah"]
+[ext_resource type="Script" path="res://scenes/Monsters/princess_dash_ghost.gd" id="2_wn8aa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7h73"]
+atlas = ExtResource("1_7hkah")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfh15"]
+atlas = ExtResource("1_7hkah")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_44pmi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v7h73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfh15")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[node name="PrincessDashGhost" type="AnimatedSprite2D"]
+modulate = Color(0.619608, 1, 0.788235, 0.6)
+sprite_frames = SubResource("SpriteFrames_44pmi")
+autoplay = "default"
+frame = 1
+frame_progress = 0.697505
+script = ExtResource("2_wn8aa")

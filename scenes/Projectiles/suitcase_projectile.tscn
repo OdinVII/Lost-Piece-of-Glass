@@ -1,0 +1,113 @@
+[gd_scene load_steps=15 format=3 uid="uid://lofuwenf7rpu"]
+
+[ext_resource type="Texture2D" uid="uid://lg58lyv24c11" path="res://graphic/characters/Player/Suitcase/Suitcase 1-Sheet.png" id="1_6vbnp"]
+[ext_resource type="Script" path="res://scenes/Projectiles/suitcase_projectile1.gd" id="1_25wo1"]
+[ext_resource type="AudioStream" uid="uid://d3dd4kha3peod" path="res://Audio/SFX/monsters/HitBySuitcase.wav" id="3_q8upv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2fvd"]
+atlas = ExtResource("1_6vbnp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrw63"]
+atlas = ExtResource("1_6vbnp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmjqp"]
+atlas = ExtResource("1_6vbnp")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vtis"]
+atlas = ExtResource("1_6vbnp")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l6h7v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2fvd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrw63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mmjqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vtis")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5tevy"]
+radius = 5.0
+
+[sub_resource type="Curve" id="Curve_v7eac"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.573333, 0.791209), 0.0, 0.0, 0, 0, Vector2(1, 0.0659341), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_eti0e"]
+curve = SubResource("Curve_v7eac")
+
+[sub_resource type="Curve" id="Curve_1o515"]
+max_value = 5.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 5), 0.0, 0.0, 0, 0, Vector2(0.153333, 2.25275), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_3ggei"]
+curve = SubResource("Curve_1o515")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_284tt"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 67.42
+initial_velocity_max = 202.24
+angular_velocity_min = 2000.0
+angular_velocity_max = 2000.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 51.69
+radial_accel_max = 51.69
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_3ggei")
+color = Color(0.152941, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_eti0e")
+
+[node name="Suitcase_projectile" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_25wo1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(2, 2, 2, 1)
+position = Vector2(-2, 0)
+scale = Vector2(0.698481, 0.698481)
+sprite_frames = SubResource("SpriteFrames_l6h7v")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.981476
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+shape = SubResource("CircleShape2D_5tevy")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(3, 1)
+emitting = false
+amount = 14
+amount_ratio = 0.7399
+process_material = SubResource("ParticleProcessMaterial_284tt")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+
+[node name="HitAnEnemy" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_q8upv")
+pitch_scale = 1.53
+bus = &"SFX"
+
+[node name="HitWall" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_q8upv")
+pitch_scale = 0.92
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

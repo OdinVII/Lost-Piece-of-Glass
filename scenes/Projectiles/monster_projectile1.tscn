@@ -1,0 +1,138 @@
+[gd_scene load_steps=19 format=3 uid="uid://bbd0e7q3chk4u"]
+
+[ext_resource type="Script" path="res://scenes/Projectiles/monster_projectile1.gd" id="1_ikwlh"]
+[ext_resource type="Shader" path="res://graphic/shaders/aberration1.gdshader" id="2_4yx0r"]
+[ext_resource type="Texture2D" uid="uid://cnfaug312rxub" path="res://graphic/Monsters/CursedWorker/Monster projectile 1.png" id="2_fw1n1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uvpb4"]
+shader = ExtResource("2_4yx0r")
+shader_parameter/range = 0.015
+shader_parameter/noiseQuality = 33.4
+shader_parameter/noiseIntensity = -0.024
+shader_parameter/offsetIntensity = 0.03
+shader_parameter/colorOffsetIntensity = 3.52
+shader_parameter/modulate = Color(0.352941, 0, 0.137255, 1)
+shader_parameter/modulate_strength = 0.364
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kipum"]
+atlas = ExtResource("2_fw1n1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jp81"]
+atlas = ExtResource("2_fw1n1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrt5u"]
+atlas = ExtResource("2_fw1n1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8w8o0"]
+atlas = ExtResource("2_fw1n1")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g2smn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kipum")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jp81")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nrt5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8w8o0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 11.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mwidb"]
+radius = 5.0
+
+[sub_resource type="Curve" id="Curve_lxaji"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.573333, 0.791209), 0.0, 0.0, 0, 0, Vector2(1, 0.0659341), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_d8mrc"]
+curve = SubResource("Curve_lxaji")
+
+[sub_resource type="Curve" id="Curve_5lw0p"]
+max_value = 5.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 5), 0.0, 0.0, 0, 0, Vector2(0.153333, 2.25275), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_s6dbt"]
+curve = SubResource("Curve_5lw0p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ed1at"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 67.42
+initial_velocity_max = 202.24
+angular_velocity_min = 2000.0
+angular_velocity_max = 2000.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 51.69
+radial_accel_max = 51.69
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_s6dbt")
+color = Color(1, 0.0627451, 0.741176, 1)
+alpha_curve = SubResource("CurveTexture_d8mrc")
+
+[sub_resource type="Curve" id="Curve_d7nxp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.606667, 0.78022), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_q1esq"]
+curve = SubResource("Curve_d7nxp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_obj4t"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.32
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 89.88
+initial_velocity_max = 112.36
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+color = Color(1, 0.482353, 1, 0.713726)
+alpha_curve = SubResource("CurveTexture_q1esq")
+
+[node name="Suitcase_projectile" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_ikwlh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_uvpb4")
+position = Vector2(-2, 0)
+scale = Vector2(0.698481, 0.698481)
+sprite_frames = SubResource("SpriteFrames_g2smn")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.591626
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1)
+shape = SubResource("CircleShape2D_mwidb")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(3, 1)
+emitting = false
+amount = 17
+amount_ratio = 0.7399
+process_material = SubResource("ParticleProcessMaterial_ed1at")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+
+[node name="Particles2D" type="GPUParticles2D" parent="."]
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_obj4t")
+lifetime = 0.4
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

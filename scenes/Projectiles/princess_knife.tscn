@@ -1,0 +1,163 @@
+[gd_scene load_steps=21 format=3 uid="uid://cne3cq723pudc"]
+
+[ext_resource type="Script" path="res://scenes/Projectiles/princess_knife.gd" id="1_fy6jj"]
+[ext_resource type="Texture2D" uid="uid://b1rndskrkhlx6" path="res://graphic/Monsters/Bosses/Princess/Princess Knife 1-Sheet.png" id="1_wyxs3"]
+[ext_resource type="AudioStream" uid="uid://d3dd4kha3peod" path="res://Audio/SFX/monsters/HitBySuitcase.wav" id="3_sfibl"]
+[ext_resource type="AudioStream" uid="uid://dv661jn8qlg3b" path="res://Audio/SFX/monsters/Princess/KnifeHitWall.mp3" id="4_48v1r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4lgjo"]
+atlas = ExtResource("1_wyxs3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmuif"]
+atlas = ExtResource("1_wyxs3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6pl8"]
+atlas = ExtResource("1_wyxs3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48254"]
+atlas = ExtResource("1_wyxs3")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_atiir"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4lgjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmuif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6pl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48254")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_naye3"]
+radius = 3.0
+height = 24.0
+
+[sub_resource type="Curve" id="Curve_xqdmq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.054945), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4q7hu"]
+curve = SubResource("Curve_xqdmq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e52dg"]
+particle_flag_disable_z = true
+angle_min = -163.6
+angle_max = 294.5
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 79.54
+initial_velocity_max = 215.91
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.0
+color = Color(0.357, 2, 2, 1)
+alpha_curve = SubResource("CurveTexture_4q7hu")
+turbulence_noise_strength = 16.96
+turbulence_noise_scale = 9.319
+turbulence_noise_speed_random = 2.11
+turbulence_influence_min = 0.681
+turbulence_influence_max = 1.0
+turbulence_initial_displacement_min = 63.8
+turbulence_initial_displacement_max = 63.8
+
+[sub_resource type="Curve" id="Curve_8ok67"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.573333, 0.791209), 0.0, 0.0, 0, 0, Vector2(1, 0.0659341), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_u4co3"]
+curve = SubResource("Curve_8ok67")
+
+[sub_resource type="Curve" id="Curve_b33n7"]
+max_value = 5.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 5), 0.0, 0.0, 0, 0, Vector2(0.153333, 2.25275), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_u25xk"]
+curve = SubResource("Curve_b33n7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sxg1c"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 192.42
+initial_velocity_max = 305.36
+angular_velocity_min = 2000.0
+angular_velocity_max = 2000.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 51.69
+radial_accel_max = 51.69
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_u25xk")
+color = Color(0.278, 2, 2, 1)
+alpha_curve = SubResource("CurveTexture_u4co3")
+
+[sub_resource type="Gradient" id="Gradient_41dnt"]
+colors = PackedColorArray(2.55093e-06, 0.674765, 0.462434, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8vvcx"]
+gradient = SubResource("Gradient_41dnt")
+width = 222
+height = 222
+fill = 1
+fill_from = Vector2(0.525346, 0.497696)
+fill_to = Vector2(0.921659, 0.921659)
+
+[node name="PrincessKnife" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_fy6jj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(2, 2, 2, 1)
+rotation = 1.29669
+scale = Vector2(1.3, 1.3)
+sprite_frames = SubResource("SpriteFrames_atiir")
+autoplay = "default"
+frame_progress = 0.953819
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_naye3")
+
+[node name="Particles2D" type="GPUParticles2D" parent="."]
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_e52dg")
+lifetime = 0.5
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 20
+amount_ratio = 0.7399
+process_material = SubResource("ParticleProcessMaterial_sxg1c")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.32
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_8vvcx")
+
+[node name="HitWall" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_sfibl")
+pitch_scale = 0.92
+bus = &"SFX"
+
+[node name="KnifeHitWallSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_48v1r")
+volume_db = -5.0
+pitch_scale = 0.53
+bus = &"SFX"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

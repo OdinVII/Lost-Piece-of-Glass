@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk3htklve1ykq"]
+
+[ext_resource type="Texture2D" uid="uid://b53aw4rxjn1rf" path="res://graphic/enviroment/Objects/Bush1.png" id="1_0rhws"]
+
+[node name="Bush1" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Node2D" type="Sprite2D" parent="."]
+modulate = Color(0.637843, 0.637843, 0.637843, 1)
+position = Vector2(0, -28)
+scale = Vector2(0.551868, 0.551868)
+texture = ExtResource("1_0rhws")

@@ -1,0 +1,161 @@
+[gd_scene load_steps=21 format=3 uid="uid://b33av8wj7fu00"]
+
+[ext_resource type="Texture2D" uid="uid://68vjfdu4j0pt" path="res://graphic/characters/Player/Shadow projectile/Shad-projectile 1-Sheet.png" id="1_7rt0v"]
+[ext_resource type="Script" path="res://scenes/shadow_projectile1.gd" id="1_la1ap"]
+[ext_resource type="Texture2D" uid="uid://bolx3i046molv" path="res://graphic/characters/Player/Shadow projectile/Shad-projectile explosive1-Sheet.png" id="3_bpahn"]
+[ext_resource type="AudioStream" uid="uid://wq4hktn4ejbg" path="res://Audio/SFX/Shadow explosion 1.wav" id="4_27mvd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6hqo7"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_liv35"]
+atlas = ExtResource("1_7rt0v")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i176h"]
+atlas = ExtResource("1_7rt0v")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xtf2"]
+atlas = ExtResource("1_7rt0v")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xvc6"]
+atlas = ExtResource("3_bpahn")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5yh3"]
+atlas = ExtResource("3_bpahn")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmvw7"]
+atlas = ExtResource("3_bpahn")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wmle"]
+atlas = ExtResource("3_bpahn")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yn33"]
+atlas = ExtResource("3_bpahn")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcwlu"]
+atlas = ExtResource("3_bpahn")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ucyp"]
+atlas = ExtResource("3_bpahn")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5intv"]
+atlas = ExtResource("3_bpahn")
+region = Rect2(672, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ey550"]
+atlas = ExtResource("3_bpahn")
+region = Rect2(768, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uxu7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_liv35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i176h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xtf2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xvc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5yh3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmvw7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wmle")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yn33")
+}, {
+"duration": 1.6,
+"texture": SubResource("AtlasTexture_rcwlu")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_4ucyp")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_5intv")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_ey550")
+}],
+"loop": false,
+"name": &"explosion",
+"speed": 19.0
+}]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8vdxc"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.32
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 89.88
+initial_velocity_max = 112.36
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+color = Color(0.376471, 0.545098, 0.964706, 0.694118)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fen6j"]
+radius = 8.0
+
+[node name="Shadow projectile" type="Area2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_la1ap")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+scale = Vector2(1.22222, 2.09803)
+shape = SubResource("CircleShape2D_6hqo7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
+sprite_frames = SubResource("SpriteFrames_uxu7s")
+autoplay = "default"
+frame = 2
+frame_progress = 0.909092
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.948
+one_shot = true
+
+[node name="Particles2D" type="GPUParticles2D" parent="."]
+amount = 45
+process_material = SubResource("ParticleProcessMaterial_8vdxc")
+lifetime = 0.4
+
+[node name="Area2D" type="Area2D" parent="."]
+z_index = -1
+scale = Vector2(1.62895, 1.62895)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_fen6j")
+
+[node name="ShadowExplosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_27mvd")
+volume_db = -15.928
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cxvxcqx8pdfts"
+path="res://.godot/imported/aberration - battle ost.ogg-002ce578816c3d0e71c8580b953f30c6.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/OST/aberration - battle ost.ogg"
+dest_files=["res://.godot/imported/aberration - battle ost.ogg-002ce578816c3d0e71c8580b953f30c6.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
